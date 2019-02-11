@@ -29,46 +29,20 @@ Design an HTML5 page. For the variable names and their values, you now need to c
 		</tbody>
 	</table> 
 ```
+Abbildung
 ![Project `Knockout.js](/Architecture/Knockoutjs.png)
 
 ----
 ## REST API
-The access of the REST client is via http methods to request or modify resources. The data exchange format is JSON.
-Here you find the Phoenix Contact [API Description](https://x).
-
-HTTP Methode for get variables:
-```
-https://192.168.1.10/_pxc_api/api/variables?pathPrefix=Arp.Plc.Eclr/&paths=Variable1,...,VariableN
-```
-To read IN-Ports and OUT-Ports write instead of the variablename (Name of programminstance+ (.) + IN/OUT-Portname)
+The access of the REST client is via http methods to request or modify resources. The data exchange format is JSON. Please implement the complete program logic in the viewmodel.
+API Documentation
 
 ### Implement the ViewModel
 The free JavaScript library [jQuery](https://jquery.com) provides an [ajax engine](api.jquery.com/jquery.ajax/) that simplifies the creation and call of http method.
 
-The following example describes how to overwrite a variable with a new value.
-```JavaScript
-function writeConstantToVariable()
-{
-    var writeData = {"sessionID": SessionID, "pathPrefix": "Arp.Plc.Eclr/", "variables": [ { "path": viewModel.VarName(), "value": viewModel.ConstantValue(), "valueType": "Constant" } ]};
-	$.ajax({
-    type: "PUT",
-    url: root+"/_pxc_api/api/variables/",
-	  data: JSON.stringify(writeData),
-	  dataType: "json"
-})
-    .done(function(data, status, jqXHR){
-        successCallback(data);
-    })
-    .fail(function(jqXHR, status, errorThrownthrown){
-        console.log("Write Error: " + errorThrown);
-        console.log("Status: " + status);
-        console.dir(jqXHR);
-		alert( "Write $.ajax failed.  Status: " + status);
-    });
-}
-```
-
+The best way to read variables is, to read variables in groups. The web server provides groups of variables that were requested at the beginning of the session. Since these groups are not persistent, the groups must be re-registered each time they are seated.
 In the case of a GET methode, where the respone from the server come in JSON format, this JSON file still need to passed to the View(HTML). 
+
 ```JavaScript
 function Read()//Function for reading variable groups
 {
@@ -97,7 +71,7 @@ function Read()//Function for reading variable groups
     });
 }
 ```
-It is also possible to read a single variable.
+The following example describes how to overwrite a single variable with a new value.
 ```JavaScript
 function ReadVariable()//Function for reading out individual variables
 {
@@ -139,6 +113,30 @@ function ReadVariable()//Function for reading out individual variables
     });;
 }
 ```
+
+The following example describes how to overwrite a single variable with a new value.
+```JavaScript
+function writeConstantToVariable()
+{
+    var writeData = {"sessionID": SessionID, "pathPrefix": "Arp.Plc.Eclr/", "variables": [ { "path": viewModel.VarName(), "value": viewModel.ConstantValue(), "valueType": "Constant" } ]};
+	$.ajax({
+    type: "PUT",
+    url: root+"/_pxc_api/api/variables/",
+	  data: JSON.stringify(writeData),
+	  dataType: "json"
+})
+    .done(function(data, status, jqXHR){
+        successCallback(data);
+    })
+    .fail(function(jqXHR, status, errorThrownthrown){
+        console.log("Write Error: " + errorThrown);
+        console.log("Status: " + status);
+        console.dir(jqXHR);
+		alert( "Write $.ajax failed.  Status: " + status);
+    });
+}
+```
+To read IN ports and OUT ports write instead of the variable name (Name of program instance + (.) + IN / OUT port name)
 
 ----
 ## Upload project files to controller
