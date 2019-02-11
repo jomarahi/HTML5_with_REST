@@ -1,0 +1,96 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+	<title>Demo of knockoutjs and PXCAPI</title>
+	<!--CSS Stylesheet-->
+  <link rel="stylesheet" type="text/css" href="css/w3.css" />
+  <link rel="stylesheet" type="text/css" href="css/style.css" />
+  <link rel="stylesheet" type="text/css" href="css/material-icons.css" />
+	<!--Javacript -->
+  <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+  <script type="text/javascript" src="js/knockout-min.js"></script>
+  <script type="text/javascript" src="js/knockout.mapping.js"></script>
+  <script type="text/javascript" src="js/ViewModelForAXCF2152.js"></script>
+  <script type="text/javascript" src="js/jquery.ajax-cross-origin.min.js"></script>
+</head>
+
+<body class="w3-container mdb"  ondragstart="return false;" ondrop="return false;">
+      <div style="float: left">
+        <img src="img/Logo.png" style="width:140px;height:72px;">
+      </div>
+		  <h1>Demo of External Access</h1>
+
+	<div class="w3-col s2 w3-black mdb" style="height:50px;position:absolute;right:10px;top:10px">
+    <table>
+      <tr>
+        <th><i class="material-icons" style="font-size:35px;">access_time</i></th>
+        <th>
+          <p class="w3-center">
+            <span data-bind="text: dispTime">-</span><br />
+            <span data-bind="text: dispDate">-</span><br />
+          </p>
+        </th>
+      </tr>
+    </table>
+	</div>
+	<div id"box1">
+		<div >
+			<h2><i class="material-icons" style="font-size:35px;">search</i>Read Variables</h2>
+		</div>
+		<table id="variables">
+			<thead>
+				<tr>
+          <th>Prefix</th>
+					<th>Tag</th>
+					<th>Value</th>
+				</tr>
+			</thead>
+			<tbody data-bind="foreach:hmitags">
+				<tr>
+          <td id="Tag" data-bind="text: TagPrefix"/>
+					<td id="Tag" data-bind="text: TagName"/>
+					<td id="Value" data-bind="text: TagValue"/>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+	<div id"box2">
+		<h2> <i class="material-icons" style="font-size:35px;">vertical_align_bottom</i>Write Variables</h2>
+		<table id="variables">
+			<thead style="color:#000;background-color:#ccc">
+				<tr>
+					<th>Source Type</th>
+					<th>Source</th>
+					<th>Destination</th>
+					<th>Action</th></tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>Constant</td>
+					<td><input class="input-demo" data-bind="value: ConstantValue" /></td>
+					<td><select class="dropdown-demo" data-bind="value: VarName, options: $root.availableVariables"></select></td>  <!--Get VarName Variable from user selection-->
+					<td><button class ="btn-demo" data-bind="click: Write">Write Constant</button></td>
+				</tr>
+			</tbody>
+		</table><br />
+	</div>
+  <div class="footer">
+    <ul>
+      <li>
+        <a class="active" href="https://192.168.1.10/ehmi/hmiapp.html">
+      <table>
+        <tr>
+          <th>
+            <i class="material-icons" style="font-size:35px;">home</i>
+          <th>
+          Home
+          </th>
+        </tr>
+      </table>
+    </a>
+    </li>
+  </ul>
+</div>
+</body>
+</html>
