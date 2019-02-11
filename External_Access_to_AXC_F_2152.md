@@ -43,71 +43,71 @@ In the case of a GET methode, where the respone from the server come in JSON for
 ```JavaScript
 function Read()//Function for reading variable groups
 {
-  data.length=0;
-  $.ajax({
-    type: "GET",
-    url: root+"/_pxc_api/api/groups/"+GroupID,
-  })
-  .done(function(data, status, jqXHR){
-    successCallback(data);
-    for(var i = 0; i < data.variables.length; i++)
-    {
-        // add it to the ko observable array named hmitags that is in the viewmodel
-        viewModel.hmitags.push
-        ({
-            TagPrefix: ko.observable(data.variablePathPrefix),
-            TagName:   ko.observable(data.variables[i].path),
-            TagValue:  ko.observable(data.variables[i].value)
-        })
-    }
-  })
-  .fail(function(jqXHR, status, errorThrown){
-    console.log("Read Error: " + errorThrown);
-    console.log("Status: " + status);
-    console.dir(jqXHR);
-  });
+    data.length=0;
+    $.ajax({
+        type: "GET",
+        url: root+"/_pxc_api/api/groups/"+GroupID,
+    })
+    .done(function(data, status, jqXHR){
+        successCallback(data);
+        for(var i = 0; i < data.variables.length; i++)
+        {
+            // add it to the ko observable array named hmitags that is in the viewmodel
+            viewModel.hmitags.push
+            ({
+                TagPrefix: ko.observable(data.variablePathPrefix),
+                TagName:   ko.observable(data.variables[i].path),
+                TagValue:  ko.observable(data.variables[i].value)
+            })
+        }
+    })
+    .fail(function(jqXHR, status, errorThrown){
+        console.log("Read Error: " + errorThrown);
+        console.log("Status: " + status);
+        console.dir(jqXHR);
+    });
 }
 ```
 The following example describes how to overwrite a single variable with a new value.
 ```JavaScript
 function ReadVariable()//Function for reading out individual variables
 {
-  //List can contain only one variable
-  var HMIReadList = "&paths=Integer1"
-  data.length = 0; // get rid of the data from the last query
-  // issue the data request
-  $.ajax({
-    type: "GET",
-    url: root+"/_pxc_api/api/variables?pathPrefix=Arp.Plc.Eclr/"+HMIReadList,
-  })
-  .done(function(data, status, jqXHR){
-    successCallback(data);
-    for(var i = 0; i < data.variables.length; i++)
-    {
-        //Split the prefix and name of the variable
-        var prefix =""
-        var name = data.variables[i].path
-        if (name.indexOf("/") != -1)
+    //List can contain only one variable
+    var HMIReadList = "&paths=Integer1"
+    data.length = 0; // get rid of the data from the last query
+    // issue the data request
+    $.ajax({
+        type: "GET",
+        url: root+"/_pxc_api/api/variables?pathPrefix=Arp.Plc.Eclr/"+HMIReadList,
+    })
+    .done(function(data, status, jqXHR){
+        successCallback(data);
+        for(var i = 0; i < data.variables.length; i++)
         {
-            var tmp =name.split("/");
-            prefix = tmp[0]+"/";
-            name = tmp[1];
+            //Split the prefix and name of the variable
+            var prefix =""
+            var name = data.variables[i].path
+            if (name.indexOf("/") != -1)
+            {
+                var tmp =name.split("/");
+                prefix = tmp[0]+"/";
+                name = tmp[1];
+            }
+            // add it to the ko observable array named hmitags that is in the viewmodel
+            viewModel.hmitags.push
+            ({
+                TagPrefix:   ko.observable(prefix),
+                TagName:   ko.observable(name),
+                TagValue:  ko.observable(data.variables[i].value)
+            })
         }
-        // add it to the ko observable array named hmitags that is in the viewmodel
-        viewModel.hmitags.push
-        ({
-            TagPrefix:   ko.observable(prefix),
-            TagName:   ko.observable(name),
-            TagValue:  ko.observable(data.variables[i].value)
-        })
-    }
-  })
-  .fail(function(jqXHR, status, errorThrown){
-    console.log("CreateSession Error: " + errorThrown);
-    console.log("Status: " + status);
-    console.dir(jqXHR);
-    alert( "CreateSession $.ajax failed.  Status: " + status);
-  });;
+    })
+    .fail(function(jqXHR, status, errorThrown){
+        console.log("CreateSession Error: " + errorThrown);
+        console.log("Status: " + status);
+        console.dir(jqXHR);
+        alert( "CreateSession $.ajax failed.  Status: " + status);
+    });;
 }
 ```
 
