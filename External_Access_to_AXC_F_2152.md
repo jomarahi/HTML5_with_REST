@@ -1,12 +1,11 @@
-
 This example shows the external access to process data of the PLCnext Controller(AXC F 2152) via the REST API.
 REST(REsprentational State Transfer) being a software architeture style consisting of guidelines and best practices for creating scalable web service.
-----
+
 ## PLCnextEngineer project
 In the first step you have to create a project with the PLCnext Engineer. There you implement the program logic with the associated variables.
 After the implementation has been completed write and start the project to the controller.
 ! To read and write variables via the REST interface, they must be declared as external!
-----
+
 ## HTML5 
 The MVVM (Model-View-ViewModel) pattern provided by the free JavaScript library [Knockout.js](https://knockoutjs.com) is recommended as the implementation of the HTML page. Display and data are detached from each other and are connected only via a data binding mechanism. This makes it possible for requests to be sent to the server if necessary without the user noticing anything about them. Replies from the server are automatically evaluated and content of the website is automatically updated, so that a new construction process of the entire page is no longer necessary.
 
