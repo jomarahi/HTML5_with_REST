@@ -29,8 +29,7 @@ Design an HTML5 page. For the variable names and their values, you now need to c
 		</tbody>
 	</table> 
 ```
-Abbildung
-[Knockout.js](L:/Sonstiges/Prüfung/Abschlussprojekt/Dokumentation/Bilder/Knockoutjs.png)
+![Project `Knockout.js](/Architecture/Knockoutjs.png)
 
 ----
 ## REST API
