@@ -29,7 +29,6 @@ Design an HTML5 page. For the variable names and their values, you now need to c
 		</tbody>
 	</table> 
 ```
-Abbildung
 ![Project `Knockout.js](/Architecture/Knockoutjs.png)
 
 ----
