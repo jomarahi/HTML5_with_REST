@@ -1,3 +1,8 @@
+//  
+// Copyright (c) Phoenix Contact GmbH & Co. KG. All rights reserved.  
+// Licensed under the MIT. See LICENSE file in the project root for full license information.  
+//  
+
 // Initialize the array with some dummy values
 var data = [{ TagPrefix: "Eclr", TagName: "dummytag", TagValue: "dummyvalue" }];
 var root = "https://192.168.1.10"  // IP Adress of Controller
