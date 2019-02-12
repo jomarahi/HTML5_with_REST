@@ -8,6 +8,14 @@ This example shows the web-based access to GDS variables of the controller(AXC F
 
 ## Getting Started
 
+### Table Of Contents
+
+|\#     |    Topic       |Content|
+| ----  | -------------- | ------
+|1.|[Basic Definitions](/Basics/BasicDefinitions.md)|Explanation of frequently used vocabular |
+|2.|[Basics](/Basics/Basics.md)| Installation of git, setting up of a repository|
+
+
 ## Contributing
 
 You can participate in this project by [submitting bugs and feature requests](https://github.com/PLCnext/User_specific_HTML5_using_the_PLCnext_REST_Interface/issues). Help us by checking *this guide* how bugs are reported.
