@@ -14,12 +14,11 @@ The next step is to create the HTML page. It is advisable to stick to the archit
 The HTML code is attached to the project.
 
 ----
-## REST API
+## 3. REST Interface
 The access of the REST client is via http methods to request or modify resources. The data exchange format is JSON. Please implement the complete program logic in the viewmodel.
 API Documentation
 
-### Implement the ViewModel
-The free JavaScript library [jQuery](https://jquery.com) provides an [ajax engine](api.jquery.com/jquery.ajax/) that simplifies the creation and call of http method.
+The free JavaScript library [jQuery](https://jquery.com) provides an [ajax engine](api.jquery.com/jquery.ajax/) that simplifies the creation and call of http method. Please implement the http methods in the viewmodel.
 
 The best way to read variables is, to read variables in groups. The web server provides groups of variables that were requested at the beginning of the session. Since these groups are not persistent, the groups must be re-registered each time they are seated.
 In the case of a GET methode, where the respone from the server come in JSON format, this JSON file still need to passed to the View(HTML). 
@@ -120,7 +119,7 @@ function writeConstantToVariable()
 To read IN ports and OUT ports write instead of the variable name (Name of program instance + (.) + IN / OUT port name)
 
 ----
-## Upload project files to controller
+## 4. Upload project files to controller
 Once you've completed the HTML page with style sheet and JavaScript, you can transfer the associated files to the controller.
 
 
