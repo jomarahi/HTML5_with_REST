@@ -12,8 +12,8 @@ This example shows the web-based access to GDS variables of the controller(AXC F
 
 |\#     |    Topic       |Content|
 | ----  | -------------- | ------
-|1.|[Basic Definitions](/Architecture/Architecture.md)|Explanation of frequently used vocabular |
-|2.|[Basics](/Project/README.md)| Installation of git, setting up of a repository|
+|1.|[Basic Definitions](/Architecture/Architecture.md)|Explanation of used architecture |
+|2.|[Basics](/Project/README.md)| Sourcecode of example project|
 
 
 ## Contributing
