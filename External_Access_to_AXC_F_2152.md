@@ -138,6 +138,12 @@ To read IN ports and OUT ports write instead of the variable name (Name of progr
 ----
 ## Upload project files to controller
 Once you've completed the HTML page with style sheet and JavaScript, you can transfer the associated files to the controller.
+
+
+1. Write and Start PLCnextEngineer project "ExternalAccess.pcwex" to the controller
+
+2. Upload the HMTL5 folder to this path:   /opt/plcnext/projects/PCWE/Services/Ehmi/HTML5
+
 To load the file onto the controller use SFTP. To do this, it is possible to use the open source software [WinSCP](https://winscp.net/). 
 In WinSCP, it is first necessary to establish a connection to the controller. For this purpose, IP address, username and password. For the user admin, the default password is the one applied to the control case.
 
@@ -147,10 +153,12 @@ For example:
 /opt/plcnext/projects/PCWE/Ehmi/HTML5
 ```
 
+3. Launch eHMI Application and navigate to External Webseite
+
 The website can now be accessed by any client connected to the controller with the URL (IP address of the controller + path of the directory + documentname.html). 
 
 For example:
 ```
 https://192.168.1.10/HTML5/HMIDemo.html
 ```
-----
+!!!This example is without User Authentification
