@@ -3,7 +3,7 @@
 This example shows the external access to process data of the PLCnext Controller(AXC F 2152) via the REST API.
 REST(REsprentational State Transfer) being a software architeture style consisting of guidelines and best practices for creating scalable web service.
 
-## 1.PLCnextEngineer project
+## 1. PLCnextEngineer project
 In the first step you have to create a project with the PLCnext Engineer. There you implement the program logic with the associated variables.
 After the implementation has been completed write and start the project to the controller.
 
