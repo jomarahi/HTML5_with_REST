@@ -10,14 +10,14 @@ This example shows the web-based access to GDS variables of the controller(AXC F
 
 ## Contributing
 
-You can participate in this project by [submitting bugs and feature requests](https://github.com/PLCnext/User specific HTML5 using the PLCnext REST Interface/issues). Help us by checking *this guide* how bugs are reported.
+You can participate in this project by [submitting bugs and feature requests](https://github.com/PLCnext/User_specific_HTML5_using_the_PLCnext_REST_Interface/issues). Help us by checking *this guide* how bugs are reported.
 Please let us know if anything is not working out as expected.
 
 ## Feedback
 
 * Ask a question in our [Forum](https://www.plcnext-community.net/index.php?option=com_easydiscuss&view=categories&Itemid=221&lang=en).
 * Request a new feature on [GitHub](CONTRIBUTING.md).
-* File a bug in [GitHub Issues](https://github.com/PLCnext/User specific HTML5 using the PLCnext REST Interface/issues).
+* File a bug in [GitHub Issues](https://github.com/PLCnext/User_specific_HTML5_using_the_PLCnext_REST_Interface/issues).
 
 ## License
 
