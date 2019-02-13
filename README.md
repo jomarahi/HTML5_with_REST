@@ -13,7 +13,7 @@ This example shows the web-based access to GDS variables of the controller(AXC F
 |\#     |    Topic       |Content|
 | ----  | -------------- | ------
 |1.|[Basic Definitions](/Architecture/Architecture.md)|Explanation of used architecture |
-|2.|[Basics](/Project/README.md)| Sourcecode of example project|
+|2.|[User Guideline](/Project/README.md)| Guideline and Sourcecode of example project|
 
 
 ## Contributing
