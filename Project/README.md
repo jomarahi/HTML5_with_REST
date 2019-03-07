@@ -1,30 +1,34 @@
-## User specific HTML5 using the PLCnext REST Interface
+# User specific HTML5 using the PLCnext REST Interface
 
-This example shows the external access to process data of the PLCnext Controller(AXC F 2152) via the REST API.
-REST(REsprentational State Transfer) being a software architeture style consisting of guidelines and best practices for creating scalable web service.
+This example shows the external access to process data of the PLCnext Controller (AXC F 2152) via the REST API.
+REST (REpresentational State Transfer) is a software architecture style consisting of guidelines and best practices for creating scalable web services.
 
-## 1. PLCnextEngineer project
+## 1. PLCnext Engineer project
 In the first step you have to create a project with the PLCnext Engineer. There you implement the program logic with the associated variables.
-After the implementation has been completed write and start the project to the controller.
+After the implementation has been completed, write and start the project to the controller.
 
-! IMPORTANT ! To read and write variables via the REST interface, they must be declared as external!
+! IMPORTANT !  
+To read and write variables via the REST interface, they must be declared as `external`!
 
 ## 2. HTML5 
-The next step is to create the HTML page. It is advisable to stick to the architectural pattern of Knockout.js. [Here](/Architecture/Architecture.md) is an explanation how the HTML page can be implemented.
-The HTML code is attached to the project.
+The next step is to create the HTML page. It is recommended to stick to the architectural pattern of Knockout.js.  
+Read the [instruction](/Architecture/Architecture.md) how to implement the HTML page.  
+The HTML code is attached to the project.  
 
 ----
 ## 3. REST Interface
-The access of the REST client is via http methods to request or modify resources. The data exchange format is JSON. Please implement the complete program logic in the viewmodel.
+The access of the REST client is via http methods to request or modify resources. The data exchange format is JSON.  
+Implement the complete program logic in the viewmodel.  
 API Documentation
 
-The free JavaScript library [jQuery](https://jquery.com) provides an [ajax engine](api.jquery.com/jquery.ajax/) that simplifies the creation and call of http method. Please implement the http methods in the viewmodel.
+The free [jQuery](https://jquery.com) JavaScript library provides an [ajax engine](api.jquery.com/jquery.ajax/) that simplifies the creation and call of a http method.  
+Implement the http methods in the viewmodel.
 
-The best way to read variables is, to read variables in groups. The web server provides groups of variables that were requested at the beginning of the session. Since these groups are not persistent, the groups must be re-registered each time they are seated.
-In the case of a GET methode, where the respone from the server come in JSON format, this JSON file still need to passed to the View(HTML). 
+The best way to read variables is to read variables in groups. The web server provides groups of variables that were requested at the beginning of the session. Since these groups are not persistent, the groups must be re-registered each time they are seated.  
+In case of a GET method where the response from the server will come in JSON format, this JSON file still needs to be passed to the view (HTML). 
 
 ```javascript
-function Read()//Function for reading variable groups
+function Read()// function for reading variable groups
 {
     data.length=0;
     $.ajax({
@@ -53,9 +57,9 @@ function Read()//Function for reading variable groups
 ```
 The following example describes how to overwrite a single variable with a new value.
 ```javascript
-function ReadVariable()//Function for reading out individual variables
+function ReadVariable()// function for reading out individual variables
 {
-    //List can contain only one variable
+    // list can contain only one variable
     var HMIReadList = "&paths=Integer1"
     data.length = 0; // get rid of the data from the last query
     // issue the data request
@@ -67,7 +71,7 @@ function ReadVariable()//Function for reading out individual variables
         successCallback(data);
         for(var i = 0; i < data.variables.length; i++)
         {
-            //Split the prefix and name of the variable
+            // split the prefix and name of the variable
             var prefix =""
             var name = data.variables[i].path
             if (name.indexOf("/") != -1)
@@ -95,6 +99,7 @@ function ReadVariable()//Function for reading out individual variables
 ```
 
 The following example describes how to overwrite a single variable with a new value.
+
 ```javascript
 function Write()
 {
@@ -121,32 +126,34 @@ function Write()
     });
 }
 ```
-To read IN ports and OUT ports write instead of the variable name (Name of program instance + (.) + IN / OUT port name)
+
+To read IN ports and OUT ports write instead of the variable name (Name of program instance + (.) + IN/OUT port name)
 
 ----
 ## 4. Upload project files to controller
-Once you've completed the HTML page with style sheet and JavaScript, you can transfer the associated files to the controller.
 
+Once you've completed the HTML page with CSS stylesheet and JavaScript, you can transfer the associated files to the controller.
 
-1. Write and Start PLCnextEngineer project "ExternalAccess.pcwex" to the controller
+1. Write and start the PLCnext Engineer project "ExternalAccess.pcwex" to the controller
 
-2. Upload the HMTL5 folder to this path:   /opt/plcnext/projects/PCWE/Services/Ehmi/HTML5
+2. Upload the HTML5 data to the eHMI path
 
-To load the file onto the controller use SFTP. To do this, it is possible to use the open source software [WinSCP](https://winscp.net/). 
-In WinSCP, it is first necessary to establish a connection to the controller. For this purpose, IP address, username and password. For the user admin, the default password is the one applied to the control case.
+Use the SFTP protocol for downloading the files to the controller, e.g. by means of the open source software [WinSCP](https://winscp.net/).  
+In WinSCP, first establish a connection to the controller: enter IP address, username and password.  
+For the "admin" user, the default password is printed on the housing of the PLC.
 
-Please create a subfolder in the /ehmi-directory and copy all related files into the folder. 
+In the `/Ehmi` directory create a subdirectory and copy all related files into it. 
 For example:
 ```
 /opt/plcnext/projects/PCWE/Ehmi/HTML5
 ```
 
-3. Launch eHMI Application and navigate to External Webseite
+3. Launch the eHMI application and navigate to the external website
 
-The website can now be accessed by any client connected to the controller with the URL (IP address of the controller + path of the directory + documentname.html). 
-
+The website can now be accessed by any client connected to the controller by URL ("IP address of the controller"/"directory"/"documentname.html"). 
 For example:
 ```
 https://192.168.1.10/HTML5/HMIDemo.html
 ```
-!!!This example is without User Authentification
+
+!!! This example works without User Authentification. Turn it off via the web-based management (WBM) on your controller.
