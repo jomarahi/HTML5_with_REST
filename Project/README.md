@@ -79,7 +79,7 @@ function ReadVariable()//Function for reading out individual variables
             // add it to the ko observable array named hmitags that is in the viewmodel
             viewModel.hmitags.push
             ({
-                TagPrefix:   ko.observable(prefix),
+                TagPrefix: ko.observable(prefix),
                 TagName:   ko.observable(name),
                 TagValue:  ko.observable(data.variables[i].value)
             })
@@ -96,20 +96,25 @@ function ReadVariable()//Function for reading out individual variables
 
 The following example describes how to overwrite a single variable with a new value.
 ```JavaScript
-function writeConstantToVariable()
+function Write()
 {
-    var writeData = {"sessionID": SessionID, "pathPrefix": "Arp.Plc.Eclr/", "variables": [ { "path": viewModel.VarName(), "value": viewModel.ConstantValue(), "valueType": "Constant" } ]};
+  var writeData = {"pathPrefix": "Arp.Plc.Eclr/", "variables": [ { "path": viewModel.VarName(), "value": viewModel.ConstantValue(), "valueType": "Constant" } ]};
+  $.ajaxSetup({
+    beforeSend: function(xhr) {
+        xhr.setRequestHeader('Authorization', 'Bearer ' + BearerToken);
+    }
+  });
 	$.ajax({
-        type: "PUT",
-        url: root+"/_pxc_api/api/variables/",
-	    data: JSON.stringify(writeData),
-	    dataType: "json"
-    })
+    type: "PUT",
+    url: baseurl+"_pxc_api/api/variables/",
+	  data: JSON.stringify(writeData),
+	  dataType: "json"
+})
     .done(function(data, status, jqXHR){
         successCallback(data);
     })
     .fail(function(jqXHR, status, errorThrownthrown){
-        console.log("Write Error: " + errorThrown);
+        console.log("Write Error: " + errorThrownthrown);
         console.log("Status: " + status);
         console.dir(jqXHR);
 		alert( "Write $.ajax failed.  Status: " + status);
