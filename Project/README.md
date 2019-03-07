@@ -23,7 +23,7 @@ The free JavaScript library [jQuery](https://jquery.com) provides an [ajax engin
 The best way to read variables is, to read variables in groups. The web server provides groups of variables that were requested at the beginning of the session. Since these groups are not persistent, the groups must be re-registered each time they are seated.
 In the case of a GET methode, where the respone from the server come in JSON format, this JSON file still need to passed to the View(HTML). 
 
-```JavaScript
+```javascript
 function Read()//Function for reading variable groups
 {
     data.length=0;
