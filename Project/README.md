@@ -19,7 +19,7 @@ The HTML code is attached to the project.
 ## 3. REST Interface
 The access of the REST client is via http methods to request or modify resources. The data exchange format is JSON.  
 Implement the complete program logic in the viewmodel.  
-API Documentation
+
 
 The free [jQuery](https://jquery.com) JavaScript library provides an [ajax engine](api.jquery.com/jquery.ajax/) that simplifies the creation and call of a http method.  
 Implement the http methods in the viewmodel.
