@@ -2,9 +2,10 @@ var baseurl = "https://192.168.1.10/"
 var pathPrefix = "Arp.Plc.Eclr/";
 var Token = "";
 var BearerToken ="";
+var GroupID = "";
 // replace with your list of variables (or even better:  load from .JSON file )
 var variables = ["PLC_SYS_TICK_CNT","Integer1","Integer2","Boolean1","Boolean2","Real1","Real2","Array1[0]","Array1[1]","Struct1.Field1","Struct1.Field2"]
-var dataPollIntervalMsecs = 250; // data poll every 250ms
+var dataPollIntervalMsecs = 100; // data poll every 250ms
 // knockout will bind to this. Set it up to bind to the same fields that are contained in the response
 var groupDataValues = [{prefix: "Arp.", path: "dummytag", value: "dummyvalue" }];
 
@@ -31,10 +32,13 @@ function startData() {
                     setInterval(function timercallback() {
                     UpdateDateTime();
                     setInterval(UpdateDateTime, 500);
-                    api.getGroup(group.id).then((groupdata) => {
+                    GroupID = group.id;
+                    api.getGroup(group.id);
+
+                    //api.getGroup(group.id).then((groupdata) => {
                         // update the fields with the data values
-                        processGroupData(groupdata);
-                    });
+                    //    processGroupData(groupdata);
+                    //});
                 },
                 dataPollIntervalMsecs);
             }
@@ -96,7 +100,7 @@ function Write()
 	  dataType: "json"
 })
     .done(function(data, status, jqXHR){
-        successCallback(data);
+        console.log("Success Write:" +writeData)
     })
     .fail(function(jqXHR, status, errorThrownthrown){
         console.log("Write Error: " + errorThrownthrown);
@@ -198,7 +202,6 @@ class AccessRequest {
             console.log("generating access request for " + baseurl + this.uri);
             xhr.open("POST", baseurl + this.uri);
             xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-
             var messagedata = {
                 code: authToken,
                 grant_type: "authorization_code",
@@ -237,7 +240,6 @@ class AccessRequest {
         });
     }
 }
-
 
 // lightweight OAuth 2.0 subset object
 class Auth2 {
@@ -288,71 +290,48 @@ class Auth2 {
 /*
  * Data services
  */
-class VariableGroup {
-    constructor(baseurl, pathPrefix, variables) {
-        this.baseurl = baseurl;
-        if (pathPrefix) {
-            this.pathPrefix = pathPrefix;
-        }
-        if (variables) {
-            this.variables = variables;
-        }
-        this.uri = "_pxc_api/api/groups/";
-        this.method = "POST";
-        // variables and groups are protected resources. If authentication is enabled then a token must be presented with the request
-        this.bearerToken;
-    }
-    // return a promise for registering a group
-    makeRegisterGroup(xhr) {
-        return new Promise((resolve, reject) => {
-            xhr.open(this.method, this.baseurl + this.uri, true);
-            xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-            if (this.bearerToken) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + this.bearerToken); // send access token
-                BearerToken = this.bearerToken;
-            }
-            xhr.onload = function onloadcallback() {
-                if (this.status === registerGroupSuccessStatus) {
-                    console.log("Register group succeeded");
-                    resolve(xhr.response);
-                } else {
-                    console.log("Register group failed");
-                    reject({
-                        status: this.status,
-                        statusText: this.statusText
-                    });
-                }
-            }
-            xhr.send(this.makeRequestBody());
-        });
-    }
-    makeRequestBody() {
-        return JSON.stringify({ pathPrefix: this.pathPrefix, paths: this.variables});
-    }
-    makeGetGroup(xhr, id) {
-        return new Promise((resolve, request) => {
-            xhr.open("GET", this.baseurl + this.uri + id);
-            xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-            if (this.bearerToken) {
-                xhr.setRequestHeader('Authorization', 'Bearer ' + this.bearerToken); // send access token
-            }
-            xhr.onload = function getGroupCallback () {
-                if (this.status === requestGroupSuccessStatus) {
-                    resolve(xhr.response);
-                } else {
-                    reject ({
-                        status: this.status,
-                        statusText: xhr.statusText
-                    });
-                };
-            };
-            xhr.send();
-        });
-    }
-}
-
-
-var api;
+ class VariableGroup {
+     constructor(baseurl, pathPrefix, variables) {
+         this.baseurl = baseurl;
+         if (pathPrefix) {
+             this.pathPrefix = pathPrefix;
+         }
+         if (variables) {
+             this.variables = variables;
+         }
+         this.uri = "_pxc_api/api/groups/";
+         this.method = "POST";
+         // variables and groups are protected resources. If authentication is enabled then a token must be presented with the request
+         this.bearerToken;
+     }
+     // return a promise for registering a group
+     makeRegisterGroup(xhr) {
+         return new Promise((resolve, reject) => {
+             xhr.open(this.method, this.baseurl + this.uri, true);
+             xhr.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+             if (this.bearerToken) {
+                 xhr.setRequestHeader('Authorization', 'Bearer ' + this.bearerToken); // send access token
+                 BearerToken = this.bearerToken;
+             }
+             xhr.onload = function onloadcallback() {
+                 if (this.status === registerGroupSuccessStatus) {
+                     console.log("Register group succeeded");
+                     resolve(xhr.response);
+                 } else {
+                     console.log("Register group failed");
+                     reject({
+                         status: this.status,
+                         statusText: this.statusText
+                     });
+                 }
+             }
+             xhr.send(this.makeRequestBody());
+         });
+     }
+     makeRequestBody() {
+         return JSON.stringify({ pathPrefix: this.pathPrefix, paths: this.variables});
+     }
+ }
 
 class Api {
     constructor(baseurl)
@@ -368,7 +347,7 @@ class Api {
     }
     // returns a promise for registering a group
     registerGroup(pathPrefix, variables) {
-        return new Promise((resolve, reject) => {
+      return new Promise((resolve, reject) => {
             var xhr = new XMLHttpRequest();
             var groupObject = new VariableGroup(this.baseurl, pathPrefix, variables);
             if (this.auth && this.auth.accessToken) {
@@ -389,25 +368,26 @@ class Api {
     }
     getGroup(id) {
         console.log("Get group request");
-        return new Promise((resolve, reject) => {
-            var groupObject = new VariableGroup(this.baseurl);
-            if (this.auth && this.auth.accessToken) {
-                groupObject.bearerToken = this.auth.accessToken; // set access token for request
-            }
-            var xhr = new XMLHttpRequest();
-            groupObject.makeGetGroup(xhr,id).then((groupResponse) => {
-                var groupData = JSON.parse(groupResponse);
-                resolve({ variablePathPrefix: groupData.variablePathPrefix, variables: groupData.variables})
-            }).catch((status) => {
-                reject(status);
-            });
+        $.ajaxSetup({
+          beforeSend: function(xhr) {
+              xhr.setRequestHeader('Authorization', 'Bearer ' + BearerToken);
+          }
         });
-    }
+        $.ajax({
+            type: "Get",
+            url: baseurl+"_pxc_api/api/groups/"+id,
+          })
+          .done(function(data, status, jqXHR){
+        console.log("Success group request");
+        processGroupData(data)
+    })
+    .fail(function(jqXHR, status, errorThrown){
+        console.log("ReadGroup Error: " + errorThrown);
+        console.log("Status: " + status);
+        console.dir(jqXHR);
+    alert( "ReadGroup $.ajax failed.  Status: " + status);
+    });
 }
-
-function successCallback(data)
-{
-    self.AlertText = "Success";
 }
 
 function initialize(baseurl) {
