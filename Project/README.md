@@ -127,7 +127,7 @@ function Write()
 }
 ```
 
-To read IN ports and OUT ports write instead of the variable name (Name of program instance + (.) + IN/OUT port name)
+To read IN-Ports and OUT-Ports use the following syntax: `Programinstancename.Outport`
 
 ----
 ## 4. Upload project files to controller
@@ -145,7 +145,7 @@ For the "admin" user, the default password is printed on the housing of the PLC.
 In the `/Ehmi` directory create a subdirectory and copy all related files into it. 
 For example:
 ```
-/opt/plcnext/projects/PCWE/Ehmi/HTML5
+/opt/plcnext/projects/PCWE/Services/Ehmi/HTML5
 ```
 
 3. Launch the eHMI application and navigate to the external website
