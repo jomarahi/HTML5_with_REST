@@ -19,7 +19,21 @@ The HTML code is attached to the project.
 ## 3. REST Interface
 The access of the REST client is via http methods to request or modify resources. The data exchange format is JSON.  
 Implement the complete program logic in the viewmodel.  
-API Documentation
+
+Command | HTTP Method | Relative URI for Controller | Query Parameters | Response
+--- | --- | --- | --- | --- 
+Service Description	| GET | /_pxc_api/api <br />  /_pxc_api/v1.0| | JSON Data
+Create Session | POST |	/_pxc_api/api/sessions | (with request body stationID=%StationID%&timeout=%OptionalTimeout%) | JSON Data
+Maintain Session | POST | /_pxc_api/api/sessions/%SessionID% | | JSON Data
+Reassign Session | POST | /_pxc_api/api/sessions/%SessionID% | (with request body stationID=%StationID%&timeout=%OptionalTimeout%) | JSON Data
+Report Sessions | GET | /_pxc_api/api/sessions |  | JSON Data
+Delete Session | DELETE | /_pxc_api/api/sessions/%SessionID% |  | 		
+Report Groups | GET | /_pxc_api/api/groups |  | JSON Data
+Register Group | POST | /_pxc_api/api/groups/%GroupID% | (with request body pathPrefix=%OptionalVariablePathPrefix%&paths=%VariablePath1%,...,%VariablePathN%) | JSON Data
+Read Group | GET | /_pxc_api/api/groups/%GroupID% | summary=%OptionalSummarySetting% | JSON Data
+Unregister Group | DELETE | /_pxc_api/api/groups/%GroupID% |  | 	
+Read Variables via GET | GET | /_pxc_api/api/variables | pathPrefix=%OptionalVariablePathPrefix%&paths=%VariablePath1%,...,%VariablePathN% | JSON Data
+Read Variables via POST | POST | /_pxc_api/api/variables | (with request body pathPrefix=%OptionalVariablePathPrefix%&paths=%VariablePath1%,...,%VariablePathN%) | JSON Data
 
 The free [jQuery](https://jquery.com) JavaScript library provides an [ajax engine](api.jquery.com/jquery.ajax/) that simplifies the creation and call of a http method.  
 Implement the http methods in the viewmodel.
@@ -127,7 +141,7 @@ function Write()
 }
 ```
 
-To read IN ports and OUT ports write instead of the variable name (Name of program instance + (.) + IN/OUT port name)
+To read IN ports and OUT ports write instead of the variable name (ProgramInstanceName.OUTportName).
 
 ----
 ## 4. Upload project files to controller
