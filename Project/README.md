@@ -41,6 +41,7 @@ Implement the http methods in the viewmodel.
 The best way to read variables is to read variables in groups. The web server provides groups of variables that were requested at the beginning of the session. Since these groups are not persistent, the groups must be re-registered each time they are seated.  
 In case of a GET method where the response from the server will come in JSON format, this JSON file still needs to be passed to the view (HTML). 
 
+The following example describes how to read variable groups.
 ```javascript
 function Read()// function for reading variable groups
 {
@@ -69,7 +70,7 @@ function Read()// function for reading variable groups
     });
 }
 ```
-The following example describes how to overwrite a single variable with a new value.
+The following example describes how to read a single variable.
 ```javascript
 function ReadVariable()// function for reading out individual variables
 {
