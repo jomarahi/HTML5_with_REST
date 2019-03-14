@@ -7,3 +7,5 @@ Names of the original copyright holders (individuals or organizations) should be
 
 * Phoenix Contact GmbH & Co. KG
   - Jonas Penner
+  - Gundula Breder
+  - Oliver Warneke
