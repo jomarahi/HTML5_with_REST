@@ -1,10 +1,9 @@
-//  
+<!--  
 // Copyright (c) Phoenix Contact GmbH & Co. KG. All rights reserved.  
 // Licensed under the MIT. See LICENSE file in the project root for full license information.  
-//  
-
-
-﻿<!DOCTYPE html>
+// 
+-->
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -16,7 +15,8 @@
 	<!--Javacript -->
   <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
   <script type="text/javascript" src="js/knockout-min.js"></script>
-  <script type="text/javascript" src="js/ViewModelForAXCF2152.js"></script>
+  <script async defer src="js/pxcapiclient.js" onload="this.onload=function(){}; handleClientLoad();" onreadystatechange="if (this.readyState === 'complete') this.onload();"></script>
+
 </head>
 
 <body class="w3-container mdb"  ondragstart="return false;" ondrop="return false;">
@@ -25,6 +25,35 @@
       </div>
 		  <h1>Demo of External Access</h1>
 
+                  <p>Enter User Name and Password</p>
+                  User Name:<input type="text" id="username" title="User name"  /><br>
+                  Password: <input type="password" id="password" title="password"/>
+                  <button id="authorize-button" style="display: none;" >Authenticate</button>
+                  <button id="signout-button" style="display: none;" onClick="window.location.reload()">Sign Out</button>
+                  <div >
+              			<h2><i class="material-icons" style="font-size:35px;">search</i>Read Variables</h2>
+              		</div>
+                  <div id="content">
+                      <table border="1" id="variables">
+                        <thead>
+                          <tr>
+                            <th>Prefix</th>
+                            <th>Tag</th>
+                            <th>Value</th>
+                          </tr>
+                        </thead>
+
+                          <tbody data-bind="foreach:hmitags">
+                              <tr>
+                                  <td data-bind="text: prefix"/>
+                                  <td data-bind="text: path"/>
+                                  <td data-bind="text: value"/>
+                              </tr>
+                          </tbody>
+
+                      </table>
+
+              </div>
 	<div class="w3-col s2 w3-black mdb" style="height:50px;position:absolute;right:10px;top:10px">
     <table>
       <tr>
@@ -38,27 +67,7 @@
       </tr>
     </table>
 	</div>
-	<div id"box1">
-		<div >
-			<h2><i class="material-icons" style="font-size:35px;">search</i>Read Variables</h2>
-		</div>
-		<table id="variables">
-			<thead>
-				<tr>
-          <th>Prefix</th>
-					<th>Tag</th>
-					<th>Value</th>
-				</tr>
-			</thead>
-			<tbody data-bind="foreach:hmitags">
-				<tr>
-          <td id="Tag" data-bind="text: TagPrefix"/>
-					<td id="Tag" data-bind="text: TagName"/>
-					<td id="Value" data-bind="text: TagValue"/>
-				</tr>
-			</tbody>
-		</table>
-	</div>
+
 	<div id"box2">
 		<h2> <i class="material-icons" style="font-size:35px;">vertical_align_bottom</i>Write Variables</h2>
 		<table id="variables">
